@@ -1,13 +1,22 @@
 import React from 'react'
-import { Button, View } from 'react-native-web'
+import { Text, TouchableOpacity, View } from 'react-native-web'
 
 const Empty = ({ onPressGetNumbers }) => (
-    <View>
-        <Button
+    <View style={{ flex: 1, alignItems: 'center' }}>
+        <TouchableOpacity
             onPress={onPressGetNumbers}
-            variant="primary">
-                Get Numbers
-        </Button>
+            style={{
+                alignItems: 'center',
+                backgroundColor: 'grey',
+                borderRadius: 8,
+                paddingHorizontal: 16,
+                paddingVertical: 12,
+                width: 240,
+
+            }}
+        >
+            <Text style={{ color: 'white', fontSize: 24 }}>Get Numbers</Text>
+        </TouchableOpacity>
     </View>
 )
 

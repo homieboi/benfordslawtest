@@ -1,9 +1,13 @@
 import React from 'react'
-import { View } from 'react-native-web'
+import { Text, View } from 'react-native-web'
 
 const Header = () => (
-    <View>
-        <h1 className="header-main">Welcome to Benfords Distribution Test</h1>
+    <View style={{ alignItems: 'center', marginTop: 36, marginBottom: 48 }}>
+        <Text
+            style={{ fontSize: 36 }}
+        >
+            Welcome to Benfords Distribution Test
+        </Text>
     </View>
 )
 

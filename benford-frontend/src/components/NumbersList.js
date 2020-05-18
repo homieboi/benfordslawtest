@@ -3,8 +3,8 @@ import { View } from 'react-native-web'
 import Empty from './Empty'
 import NumberItem from './NumberItem'
 
-const NumbersList = ({ numbers }) => {
-    if (!numbers.length) return <Empty onPressGetNumbers={() => console.log('GET NUMBERS! AWRR!')}/>
+const NumbersList = ({ numbers, onPressGetNumbers }) => {
+    if (!numbers.length) return <Empty onPressGetNumbers={onPressGetNumbers}/>
 
     return (
         <View style={{ flex: 1 }}>
