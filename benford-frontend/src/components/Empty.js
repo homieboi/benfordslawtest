@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native-web'
 
 const Empty = ({ onPressGetNumbers }) => (
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ flex: 2, alignItems: 'center' }}>
         <TouchableOpacity
             onPress={onPressGetNumbers}
             style={{

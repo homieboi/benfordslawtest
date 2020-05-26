@@ -8,7 +8,7 @@ import './styles/main.css'
 
 function App() {
   const [oldNumbers, setOldNumbers] = useState([])
-  const [newNumbers, setNewNumbers] = useState(oldNumbers)
+  const [newNumbers, setNewNumbers] = useState([])
 
   useEffect(() => {
     console.log('oldNumbers', oldNumbers)
@@ -22,12 +22,23 @@ function App() {
   }
 
   const onPressGetNumbers = () => {
-    fetch('http://localhost:3003/getNumbers')
+    fetch('http://localhost:3000/getDefaultNumberSet')
       .then(res => res.json())
       .then(numbers => {
         console.log('numbers', numbers)
         setOldNumbers(numbers)
+        setNewNumbers(numbers)
       })
+  }
+
+  const onPressSubmit = async () => {
+    const response = await fetch('http://localhost:3000/createNumberSet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'olga', numbers: newNumbers })
+    })
+
+    return console.log('response on saving new numbers', response)
   }
 
   return (
@@ -39,7 +50,7 @@ function App() {
           numbers={newNumbers}
           onPressGetNumbers={onPressGetNumbers}
         />
-        <Result oldNumbers={oldNumbers} newNumbers={newNumbers} />
+        <Result oldNumbers={oldNumbers} newNumbers={newNumbers} onPressSubmit={onPressSubmit} />
       </View>
     </View>
   );
