@@ -12,10 +12,6 @@ app.use(routes)
 
 const mongoAuthString = 'mongodb+srv://aleks:USXDWfcBYScGSVgO@cluster0-bg5kb.mongodb.net/benfords-law-test'
 
-
-var db
-var numberSets
-
 const start = async () => {
   try {
     await mongoose.connect(mongoAuthString, {

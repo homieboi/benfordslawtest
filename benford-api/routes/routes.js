@@ -1,4 +1,4 @@
-const { getNumbersArray } = require('../helpers/helperFunctions')
+const { getSmallerNumSet } = require('../helpers/helperFunctions')
 const NumberSet = require('../models/NumberSet')
 const { Router } = require('express')
 const router = Router()
@@ -10,7 +10,9 @@ router.get('/', (req, res) => {
 router.get('/getDefaultNumberSet', (req, res, next) => {
     console.log('getNumberSet ...')
 
-    res.send(getNumbersArray())
+    const numSet = getSmallerNumSet()
+
+    res.send(numSet)
 })
 
 router.get('/getAllNumberSets', async (req, res, next) => {
@@ -27,7 +29,7 @@ router.post('/createNumberSet', async (req, res, next) => {
 
     await newNumberSet.save()
 
-    console.log('createNumberSet ...')
+    console.log('number set created!')
 })
 
 module.exports = router

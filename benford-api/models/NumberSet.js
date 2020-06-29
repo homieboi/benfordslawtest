@@ -13,4 +13,4 @@ const NumberSetSchema = new Schema({
     }
 })
 
-module.exports = model('NumberSetModel', NumberSetSchema)
+module.exports = model('NumberSet', NumberSetSchema)
