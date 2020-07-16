@@ -1,33 +1,44 @@
 const R = require('ramda')
 const { log10, log, random, exp } = Math
 
-const maxNumSize = 10000
+const maxNumSize = 1000
 const amountOfNum = 1000000
+const reducingMap = [60, 35, 25, 20, 16, 13, 12, 10, 9] // for 200 numbers
 
 const benfordsProbabilities = (() => {
     var result = []
     const rangeArray = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+    
     rangeArray.map(d => {
         var probability = (log10(1 + 1 / d) * 100).toFixed(1)
-    
+        
         result.push(probability)
     })
+    
     return result
 })()
 
-// console.log('benfordsProbabilities', benfordsProbabilities)
+const getReducedDistQuant = groups => {
+    const groupsArray = Object.values(groups)
 
-// const getReducedDistQuant = reducingFactor => {
-//     console.log('reducingFactor', reducingFactor)
+    var newGroups = []
 
-//     const result = []
-//     benfordsProbabilities.map(item => {
-//         result.push((item / 100) * reducingFactor)
-//     })
+    groupsArray.forEach((group, i) => {
+        var newGroup = []
 
-//     return result
-// }
+        group.map(num => {
+            if (num >= 100) {
+                newGroup.push(num)
+            }
+        })
+
+        const newGroupSliced = newGroup.slice(0, reducingMap[i])
+
+        newGroups.push(newGroupSliced)
+    })
+
+    return newGroups
+}
 
 const isComplientWithBenfordLaw = (distRandom = {}) => {
     const randNumValues = Object.values(distRandom)
@@ -114,12 +125,16 @@ const benfordsRangeGen = (maxNumSize, amountOfNum) => {
     return table
 }
 
-const getSmallerNumSet = (amount = amountOfNum) => {
+const shuffleArray = array => array.sort(() => Math.random() - 0.5);
+
+const getSmallerNumSet = () => {
     var finalNumberSet = []
-    for (let i = 0; i < 5; i++) {
+    var reducedDistQuant = []
+        for (let i = 0; i < 5; i++) {
         const numSet = benfordsRangeGen(maxNumSize, amountOfNum)
         const { distPercent } = countFirstDigits(numSet, amountOfNum)
         const isComplient = isComplientWithBenfordLaw(distPercent)
+
         
         if (isComplient) {
             finalNumberSet = numSet
@@ -130,14 +145,12 @@ const getSmallerNumSet = (amount = amountOfNum) => {
     if (finalNumberSet.length > 0) {   
         const groups = groupByFirstDigit(finalNumberSet)
 
-        return groups
-        
-        // const groups = groupByFirstDigit([1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 123, 1234, 132, 1432, 234, 253])
-        // const reducingFactor = amount / amountOfNum
-        // const reducedDistQuant = getReducedDistQuant(reducingFactor)
+        reducedDistQuant = getReducedDistQuant(groups)
     }
 
-    return finalNumberSet
+    const result = shuffleArray(R.flatten(reducedDistQuant))
+
+    return result
 }
 
 module.exports = { benfordsRangeGen, countFirstDigits, isComplientWithBenfordLaw, getSmallerNumSet }
