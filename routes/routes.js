@@ -12,7 +12,7 @@ var transport = nodemailer.createTransport({
         user: myEmail,
         pass: pass,
     }
-  })
+})
 
 router.get('/', (req, res) => {
     res.send(true)
@@ -20,13 +20,13 @@ router.get('/', (req, res) => {
 
 router.post('/sendEmail', async (req, res) => {
     try {        
-        const { emailAddress, text } = req.body
+        const { emailAddress, content } = req.body
 
         const mailOptions = {
             from: emailAddress,
             to: 'cheluskintsev@icloud.com',
             subject: 'Benfords law test',
-            text: text,
+            attachments: [{ filename: 'result.csv', content }],
         }
 
         transport.sendMail(mailOptions, (error, info) => {
