@@ -20,11 +20,10 @@ router.get('/', (req, res) => {
 
 router.post('/sendEmail', async (req, res) => {
     try {        
-        const { emailAddress, content } = req.body
-
+        const { email, content } = req.body
         const mailOptions = {
-            from: emailAddress,
-            to: 'cheluskintsev@icloud.com',
+            from: email,
+            to: 'cheluskintsev@icloud.com, kondrashina.og@gmail.com',
             subject: 'Benfords law test',
             attachments: [{ filename: 'result.csv', content }],
         }
@@ -37,7 +36,7 @@ router.post('/sendEmail', async (req, res) => {
             }
         })
         
-        res.send('ok')
+        res.send(true)
     } catch (err) {
         console.log('ERROR:', err)
     }
