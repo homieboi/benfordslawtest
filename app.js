@@ -1,13 +1,13 @@
-const express = require('express');
-const PORT = process.env.PORT || 3000;
+const express = require('express')
+const PORT = process.env.PORT || 3000
 const mongoose = require('mongoose')
 const cors = require('cors')
-const app = express();
+const app = express()
 const routes = require('./routes/routes')
 
 app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(routes)
 
 const mongoAuthString = 'mongodb+srv://aleks:USXDWfcBYScGSVgO@cluster0-bg5kb.mongodb.net/benfords-law-test'

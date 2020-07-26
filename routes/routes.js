@@ -1,35 +1,46 @@
-const { getSmallerNumSet } = require('../helpers/helperFunctions')
-const NumberSet = require('../models/NumberSet')
 const { Router } = require('express')
 const router = Router()
+
+const nodemailer = require('nodemailer')
+
+const myEmail = 'benfordslawtest@gmail.com'
+const pass = 'namru5-xebfep-jydpAj'
+
+var transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: myEmail,
+        pass: pass,
+    }
+  })
 
 router.get('/', (req, res) => {
     res.send(true)
 })
 
-router.get('/getDefaultNumberSet', (req, res, next) => {
-    console.log('getNumberSet ...')
+router.post('/sendEmail', async (req, res) => {
+    try {        
+        const { emailAddress, text } = req.body
 
-    const numSet = getSmallerNumSet()
+        const mailOptions = {
+            from: emailAddress,
+            to: 'cheluskintsev@icloud.com',
+            subject: 'Benfords law test',
+            text: text,
+        }
 
-    res.send(numSet)
-})
-
-router.get('/getAllNumberSets', async (req, res, next) => {
-    console.log('getAllNumberSets ...')
-
-    const numberSets = await NumberSet.find({})
-
-    res.send(numberSets)
-})
-
-router.post('/createNumberSet', async (req, res, next) => {
-    const { username, numbers } = req.body
-    const newNumberSet = new NumberSet({ username, numbers })
-
-    await newNumberSet.save()
-
-    console.log('number set created!')
+        transport.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log('Email sent: ' + info.response)
+            }
+        })
+        
+        res.send('ok')
+    } catch (err) {
+        console.log('ERROR:', err)
+    }
 })
 
 module.exports = router
