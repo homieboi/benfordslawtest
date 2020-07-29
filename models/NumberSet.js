@@ -1,16 +1,16 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const NumberSetSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        default: '',
-    },
-    numbers: {
-        type: Array,
-        required: true,
-        default: [],
-    }
+  username: {
+    type: String,
+    required: true,
+    default: "",
+  },
+  numbers: {
+    type: Array,
+    required: true,
+    default: [],
+  },
 })
 
-module.exports = model('NumberSet', NumberSetSchema)
+module.exports = model("NumberSet", NumberSetSchema)
